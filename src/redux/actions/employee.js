@@ -1,25 +1,15 @@
 import axios from 'axios';
 
+export const fetchEmployee = (employees) => ({
+  type: 'FETCH_EMPLOYEE',
+  employees
+});
+
 // ADD_EMPLOYEE
 export const addEmployee = (employee) => ({
   type: 'ADD_EMPLOYEE',
   employee
 });
-
-export const startAddEmployee = (employee) => {
-  return (dispatch) => {
-  
-    axios.post('/api/employees', employee)
-      .then((response) => {
-  
-      dispatch(addEmployee(response.data));
-      }).catch((error) => {
-        console.log("Error === ", error);
-      });
-
-  };
-};
-
 
 // EDIT_EMPLOYEE
 export const editEmployee = (id, updates) => ({
@@ -34,15 +24,37 @@ export const removeEmployee = ({ id } = {}) => ({
   id
 });
 
-export const fetchEmployee = (features) => ({
-  type: 'FETCH_EMPLOYEE',
-  features
-});
 
+export const startFetchEmployee = () => {
+  return (dispatch) => {
+    return axios.get('/employees')
+      .then(function (response) {
+        dispatch(fetchEmployee(response.data));
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+export const startAddEmployee = (employee) => {
+  return (dispatch) => {
+  
+    axios.post('/employees', employee)
+      .then((response) => {
+  
+      dispatch(addEmployee(response.data));
+      }).catch((error) => {
+        console.log("Error === ", error);
+      });
+
+  };
+};
 
 export const startRemoveEmployee = (id) => {
   return (dispatch) => {
-     return axios.delete('/api/employees/'+id)
+     return axios.delete('/employees'+id)
       .then(function (response) {
          dispatch(removeEmployee(id));
       })
@@ -55,7 +67,7 @@ export const startRemoveEmployee = (id) => {
 
 export const startEditEmployee = (employee) => {
   return (dispatch) => {
-    axios.put('/api/employees', employee)
+    axios.put('/employees', employee)
       .then((response) => {
         console.log("employees ", response.data);
         dispatch(editEmployee(response.data.id, response.data))
@@ -64,18 +76,5 @@ export const startEditEmployee = (employee) => {
       });
   };
 
-};
-
-export const startFetchEmployee = () => {
-  return (dispatch) => {
-    return axios.get('/api/employees')
-      .then(function (response) {
-        dispatch(fetchEmployee(response.data));
-        return response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 };
 

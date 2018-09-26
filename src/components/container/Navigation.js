@@ -28,10 +28,10 @@ export default class Navigation extends Component {
                                 <NavLink className="nav-link" to="/add-employee">Add Employee</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to="/employee-leave">Leave Request</NavLink>
+                                <NavLink className="nav-link" to="/leave-request">Leave Request</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to="/my-profile">My Profile</NavLink>
+                                <NavLink className="nav-link" to="/profile">My Profile</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
