@@ -19,7 +19,7 @@ import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 export const  history = createHistory();
 
 const AppRouter = () => (
-    <Router history={history}>
+    // <Router history={history}>
         <Switch>
             <Route path="/" component={Login} exact={true}/>
             <EmployeeRoute path="/home" component={Dashboard} />
@@ -28,7 +28,7 @@ const AppRouter = () => (
 
             <AdminRoute path="/add-employee" component={EmployeeEdit} />
         </Switch>
-    </Router>
+    // </Router>
 );
 
 export default AppRouter;

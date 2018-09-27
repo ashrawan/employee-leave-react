@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class Login extends Component {
     constructor(props) {
@@ -7,9 +9,27 @@ class Login extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            serverStarted: false
         }
     }
+
+    componentDidMount(){
+        this.checkServerStatus();
+    }
+
+    checkServerStatus() {
+        let self = this;
+        axios.get("leave-types")
+          .then(function (response) {
+            if (response.data) {
+              self.setState({ serverStarted: true })
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -35,7 +55,13 @@ class Login extends Component {
         return (
             <div>
                 <NavLink className="nav-link" to="/home">Test Employee Dashboard</NavLink>
-                
+
+                {!this.state.serverStarted ?
+                    <div className="fa-2x text-center">
+                        <FontAwesomeIcon icon="spinner" pulse />
+                        <span> Waiting for server to Come Online ...</span>
+                    </div> : ""}
+
                 <div className="col-md-4 offset-md-4 login-form">
                     <h3 className="text-center text-primary mb-4">Login</h3>
                     <form onSubmit={this.loginSubmit} noValidate className={this.state.modalFormErrors ? 'displayErrors' : ''}>
