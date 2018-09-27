@@ -33,7 +33,7 @@ class EmployeeEdit extends Component {
     }
 
     editClicked = (member) => {
-        this.setState({currentSelectedEmployee: member });
+        this.setState({ currentSelectedEmployee: member });
     }
 
     onDeleteClicked = () => {

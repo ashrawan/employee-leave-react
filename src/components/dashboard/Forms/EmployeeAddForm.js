@@ -8,6 +8,7 @@ class EmployeeAddForm extends Component {
         this.state = {
             fullName: '',
             username: '',
+            password: '',
             supervisorOptions: [],
             selectedSupervisor: '',
         }
@@ -91,7 +92,7 @@ class EmployeeAddForm extends Component {
     };
 
     render() {
-        const { fullName, username,password, selectedSupervisor } = this.state;
+        const { fullName, username, password, selectedSupervisor } = this.state;
 
         return (
             <div>
