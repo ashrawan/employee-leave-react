@@ -8,27 +8,25 @@ import { AdminRoute } from './AdminRoute';
 
 // ----------- Employee Routes ----------------
 import Dashboard from '../components/dashboard/Dashboard';
-import EmployeeAddForm from '../components/dashboard/Forms/EmployeeAddForm';
 import EmployeeEdit from '../components/dashboard/EmployeeEdit';
 import LeaveRequestEdit from '../components/dashboard/LeaveRequestEdit';
 import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 
 // ----------- Admin Routes ----------------
 
-
-export const  history = createHistory();
+export const history = createHistory();
 
 const AppRouter = () => (
-    // <Router history={history}>
+    <Router history={history}>
         <Switch>
-            <Route path="/" component={Login} exact={true}/>
+            <Route path="/" component={Login} exact={true} />
             <EmployeeRoute path="/home" component={Dashboard} />
             <EmployeeRoute path="/leave-request" component={LeaveRequestEdit} />
             <EmployeeRoute path="/profile" component={EmployeeProfile} />
 
             <AdminRoute path="/add-employee" component={EmployeeEdit} />
         </Switch>
-    // </Router>
+    </Router>
 );
 
 export default AppRouter;
