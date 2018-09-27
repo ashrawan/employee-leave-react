@@ -19,7 +19,7 @@ export const history = createHistory();
 const AppRouter = () => (
     <Router history={history}>
         <Switch>
-            <Route path="/" component={Login} exact={true} />
+            <Route path="/" component={Login} />
             <EmployeeRoute path="/home" component={Dashboard} />
             <EmployeeRoute path="/leave-request" component={LeaveRequestEdit} />
             <EmployeeRoute path="/profile" component={EmployeeProfile} />
