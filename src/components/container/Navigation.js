@@ -20,7 +20,7 @@ export default class Navigation extends Component {
         return (
             <div>
                 <Navbar color="light" light expand="md">
-                    <NavbarBrand className="font-weight-bold text-info" href="/">Home</NavbarBrand>
+                    <NavbarBrand className="font-weight-bold text-info" href="/employee-leave-react">Home</NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
