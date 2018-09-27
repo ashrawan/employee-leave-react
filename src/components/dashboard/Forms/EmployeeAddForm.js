@@ -9,7 +9,7 @@ class EmployeeAddForm extends Component {
             fullName: '',
             username: '',
             supervisorOptions: [],
-            selectedSupervisor: ''
+            selectedSupervisor: '',
         }
     }
 
@@ -24,8 +24,10 @@ class EmployeeAddForm extends Component {
             id: props.selectedEmployee ? props.selectedEmployee.id : '',
             fullName: props.selectedEmployee ? props.selectedEmployee.fullName : '',
             username: props.selectedEmployee ? props.selectedEmployee.username : '',
-            password: props.selectedEmployee ? props.selectedEmployee.password : '',
-            selectedSupervisor: selectedSupervisor
+            password: '',
+            selectedSupervisor: selectedSupervisor,
+
+            displayErrors: ''
         })
     };
 
@@ -37,7 +39,7 @@ class EmployeeAddForm extends Component {
         e.preventDefault();
         const { id, fullName, username, password, selectedSupervisor } = this.state;
 
-        if (!e.target.checkValidity() || !this.state.description) {
+        if (!e.target.checkValidity()) {
             this.setState({
                 invalid: true,
                 displayErrors: true,
@@ -51,9 +53,9 @@ class EmployeeAddForm extends Component {
             fullName: fullName,
             username: username,
             password: password,
-            employeeSupervisor: {
+            employeeSupervisor: selectedSupervisor? {
                 id: selectedSupervisor.id
-            }
+            }: null
         });
 
     }
@@ -66,7 +68,7 @@ class EmployeeAddForm extends Component {
     loadOptions = (inputValue, callback) => {
 
         let self = this;
-        axios.get('http://localhost:8080/api/employees/employee-by-fullname', {
+        axios.get('employees/employee-by-fullname', {
             params: {
                 fullname: inputValue
             }
@@ -89,7 +91,7 @@ class EmployeeAddForm extends Component {
     };
 
     render() {
-        const { fullName, username, selectedSupervisor } = this.state;
+        const { fullName, username,password, selectedSupervisor } = this.state;
 
         return (
             <div>
@@ -111,7 +113,7 @@ class EmployeeAddForm extends Component {
                         <div className="form-group row">
                             <label htmlFor="password" className="col-sm-2 col-form-label">Optional Password <span className="text-danger"> * </span></label>
                             <div className="col-sm-10">
-                                <input type="password" className="form-control" name="password" onChange={this.onChange} placeholder="password" />
+                                <input type="password" className="form-control" name="password" value={password} disabled={!!this.state.id} onChange={this.onChange} placeholder="password" />
                             </div>
                         </div>
 

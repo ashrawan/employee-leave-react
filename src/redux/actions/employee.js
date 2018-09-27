@@ -41,7 +41,7 @@ export const startFetchEmployee = () => {
 export const startAddEmployee = (employee) => {
   return (dispatch) => {
   
-    axios.post('/employees', employee)
+    return axios.post('/employees', employee)
       .then((response) => {
   
       dispatch(addEmployee(response.data));

@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 const store = configureStore();
 
-
-axios.defaults.baseURL = 'http://127.0.0.1:8080/api/';
+// axios.defaults.baseURL = 'http://127.0.0.1:8080/api/';
+axios.defaults.baseURL = 'https://employeeleave.herokuapp.com/api/';
 
 class App extends Component {
   render() {
