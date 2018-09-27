@@ -17,14 +17,14 @@ import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 export const history = createHistory();
 
 const AppRouter = () => (
-    <Router basename={process.env.PUBLIC_URL}  history={history}>
+    <Router history={history}>
         <Switch>
-        <Route path="/" component={Login} exact/>
             <EmployeeRoute path="/home" component={Dashboard} />
             <EmployeeRoute path="/leave-request" component={LeaveRequestEdit} />
             <EmployeeRoute path="/profile" component={EmployeeProfile} />
 
             <AdminRoute path="/add-employee" component={EmployeeEdit} />
+            <Route path="/" component={Login} />
         </Switch>
     </Router>
 );
