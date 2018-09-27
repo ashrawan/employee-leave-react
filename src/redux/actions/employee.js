@@ -54,7 +54,7 @@ export const startAddEmployee = (employee) => {
 
 export const startRemoveEmployee = (id) => {
   return (dispatch) => {
-     return axios.delete('/employees'+id)
+     return axios.delete('/employees/'+id)
       .then(function (response) {
          dispatch(removeEmployee(id));
       })
@@ -67,7 +67,7 @@ export const startRemoveEmployee = (id) => {
 
 export const startEditEmployee = (employee) => {
   return (dispatch) => {
-    axios.put('/employees', employee)
+    return axios.put('/employees', employee)
       .then((response) => {
         console.log("employees ", response.data);
         dispatch(editEmployee(response.data.id, response.data))

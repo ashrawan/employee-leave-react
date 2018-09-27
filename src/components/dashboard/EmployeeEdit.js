@@ -14,7 +14,7 @@ class EmployeeEdit extends Component {
         super(props);
 
         this.state = {
-            employees: props.employees,
+            employees: props.employees.content,
             currentSelectedEmployee: '',
         };
     }
@@ -82,7 +82,6 @@ class EmployeeEdit extends Component {
                             </thead>
 
                             <tbody>
-                                {/* {console.log("dd", this.state.employees)} */}
                                 {this.state.employees && (this.state.employees.content).map((member, i) => (
 
                                     <tr key={i} onClick={() => this.editClicked(member)}>

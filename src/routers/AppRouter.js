@@ -17,9 +17,9 @@ import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 export const history = createHistory();
 
 const AppRouter = () => (
-    <Router history={history}>
+    <Router basename={process.env.PUBLIC_URL}  history={history}>
         <Switch>
-            <Route path="/" component={Login} />
+        <Route path="/" component={Login} exact/>
             <EmployeeRoute path="/home" component={Dashboard} />
             <EmployeeRoute path="/leave-request" component={LeaveRequestEdit} />
             <EmployeeRoute path="/profile" component={EmployeeProfile} />

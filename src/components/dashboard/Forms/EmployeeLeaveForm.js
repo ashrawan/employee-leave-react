@@ -83,7 +83,7 @@ class EmployeeLeaveForm extends Component {
     loadOptions = (inputValue, callback) => {
 
         let self = this;
-        axios.get('http://localhost:8080/api/leave-types')
+        axios.get('leave-types')
             .then(function (response) {
                 var leaveOpt = (response.data).map(leaveType => ({ 'id': leaveType.id, 'label': leaveType.type_name }));
                 // console.log("modified data",employeeOpt);

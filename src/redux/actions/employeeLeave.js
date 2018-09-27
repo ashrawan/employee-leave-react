@@ -41,7 +41,7 @@ export const startFetchEmployeeLeave = () => {
 export const startAddEmployeeLeave = (employeeLeave) => {
   return (dispatch) => {
   
-    axios.post('/employee-leaves', employeeLeave)
+    return axios.post('/employee-leaves', employeeLeave)
       .then((response) => {
   
       dispatch(addEmployeeLeave(response.data));
@@ -67,7 +67,7 @@ export const startRemoveEmployeeLeave = (id) => {
 
 export const startEditEmployeeLeave = (employeeLeave) => {
   return (dispatch) => {
-    axios.put('/employee-leaves', employeeLeave)
+    return axios.put('/employee-leaves', employeeLeave)
       .then((response) => {
         console.log("employeeLeaves ", response.data);
         dispatch(editEmployeeLeave(response.data.id, response.data))
