@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { HashRouter , Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
 import Login from '../components/login/Login';
@@ -17,16 +17,17 @@ import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 export const history = createHistory();
 
 const AppRouter = () => (
-    <Router history={history}>
+    <HashRouter>
         <Switch>
+            <Route path="/" component={Login} exact/>
             <EmployeeRoute path="/home" component={Dashboard} />
             <EmployeeRoute path="/leave-request" component={LeaveRequestEdit} />
             <EmployeeRoute path="/profile" component={EmployeeProfile} />
 
             <AdminRoute path="/add-employee" component={EmployeeEdit} />
-            <Route path="/" component={Login} />
+            
         </Switch>
-    </Router>
+        </HashRouter>
 );
 
 export default AppRouter;
