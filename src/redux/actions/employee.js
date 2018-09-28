@@ -29,8 +29,8 @@ export const startFetchEmployee = () => {
   return (dispatch) => {
     return axios.get('/employees')
       .then(function (response) {
-        dispatch(fetchEmployee(response.data));
-        return response.data;
+        dispatch(fetchEmployee(response.data.content));
+        return response.data.content;
       })
       .catch(function (error) {
         console.log(error);

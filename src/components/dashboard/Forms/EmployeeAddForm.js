@@ -134,10 +134,11 @@ class EmployeeAddForm extends Component {
                                 />
                             </div>
                         </div>
-
-                        <button className="btn btn-primary btn-block">
-                            {this.state.id ? 'Update' : 'Add'}
-                        </button>
+                        <div className="text-center">
+                            <button className="btn btn-primary btn-block">
+                                {this.state.id ? 'Update' : 'Add'}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div >

@@ -53,9 +53,9 @@ class EmployeeLeaveForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        const { id, employeeId, leaveReason, leaveDateFrom, leaveDateTo, leaveType, status } = this.state;
+        const { id, employeeId, leaveReason, leaveDateFrom, leaveDateTo, leaveType, selectedLeaveType, status } = this.state;
 
-        if (!e.target.checkValidity()) {
+        if (!e.target.checkValidity() || !selectedLeaveType) {
             this.setState({
                 invalid: true,
                 displayErrors: true,
@@ -70,7 +70,7 @@ class EmployeeLeaveForm extends Component {
                 id: employeeId
             },
             leaveType: {
-                id: leaveType.id
+                id: selectedLeaveType.id
             },
             leaveDateFrom: leaveDateFrom,
             leaveDateTo: leaveDateTo,
@@ -112,11 +112,11 @@ class EmployeeLeaveForm extends Component {
                         <div className="form-group row">
                             <label htmlFor="employeeId" className="col-sm-2 col-form-label">Employee Id (test) <span className="text-danger"> * </span></label>
                             <div className="col-sm-10">
-                                <input type="employeeId" className="form-control" name="employee" value={employeeId} onChange={this.onChangeEmployee} placeholder="Input Employee id" required />
+                                <input type="number" className="form-control" name="employee" value={employeeId} onChange={this.onChangeEmployee} placeholder="Input Employee id" required />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label htmlFor="leaveType" className="col-sm-2 col-form-label">Leave Type </label>
+                            <label htmlFor="leaveType" className="col-sm-2 col-form-label">Leave Type <span className="text-danger"> * </span></label>
                             <div className="col-sm-10">
                                 <AsyncSelect
                                     cacheOptions
@@ -150,9 +150,11 @@ class EmployeeLeaveForm extends Component {
                             </div>
                         </div>
 
-                        <button className="btn btn-primary btn-block">
-                            {this.state.id ? 'Update' : 'Add'}
-                        </button>
+                        <div className="text-center">
+                            <button className="btn btn-primary btn-block">
+                                {this.state.id ? 'Update' : 'Add'}
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div >

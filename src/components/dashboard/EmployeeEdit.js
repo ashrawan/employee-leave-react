@@ -14,7 +14,7 @@ class EmployeeEdit extends Component {
         super(props);
 
         this.state = {
-            employees: props.employees.content,
+            // employees: props.employees,
             currentSelectedEmployee: '',
         };
     }
@@ -25,15 +25,11 @@ class EmployeeEdit extends Component {
 
     fetchAllEmployees = () => {
         let self = this;
-        this.props.dispatch(startFetchEmployee()).then(
-            (response) => {
-                self.setState({employees: response, currentSelectedEmployee: ''});
-            }
-        );
+        this.props.dispatch(startFetchEmployee());
     }
 
     editClicked = (member) => {
-        this.setState({ currentSelectedEmployee: member });
+        this.setState({  currentSelectedEmployee: member });
     }
 
     onDeleteClicked = () => {
@@ -41,12 +37,7 @@ class EmployeeEdit extends Component {
             if (window.confirm("Are You Sure You want to delete this Member: " + this.state.currentSelectedEmployee.fullName)) {
 
                 let self = this;
-                this.props.dispatch(startRemoveEmployee(this.state.currentSelectedEmployee.id)).then(
-                    (response) => {
-                        alert("Delete Successful");
-                        self.fetchAllEmployees();
-                    }
-                );
+                this.props.dispatch(startRemoveEmployee(this.state.currentSelectedEmployee.id));
             }
         }
         else {
@@ -60,7 +51,6 @@ class EmployeeEdit extends Component {
 
             <div>
 
-                
                 <h4 className="text-center mt-3">Employee Edit</h4>
 
                 <Button color="warning" className="float-right ml-1" onClick={() => this.onDeleteClicked()}>
@@ -82,7 +72,7 @@ class EmployeeEdit extends Component {
                             </thead>
 
                             <tbody>
-                                {this.state.employees && (this.state.employees.content).map((member, i) => (
+                                {this.props.employees && (this.props.employees).map((member, i) => (
 
                                     <tr key={i} onClick={() => this.editClicked(member)}>
                                         <th scope="row">{i + 1}</th>
@@ -96,19 +86,17 @@ class EmployeeEdit extends Component {
 
                     <div className="col-md-9 pt-5 form-box">
 
-                        <EmployeeAddForm selectedEmployee={this.state.currentSelectedEmployee} onSubmit={(member) => {
+                        <EmployeeAddForm selectedEmployee={this.state.currentSelectedEmployee} onSubmit={(employee) => {
 
-                            if (member.id) {
-                                console.log("updating this member: ", member);
-                                this.props.dispatch(startEditEmployee(member)).then(
+                            if (employee.id) {
+                                console.log("updating this member: ", employee);
+                                this.props.dispatch(startEditEmployee(employee)).then(
                                     this.editClicked('')
                                 );
                             }
                             else {
-                                this.props.dispatch(startAddEmployee(member)).then(
-                                    this.editClicked('')
-                                );
-                                console.log("Adding new member: ", member);
+                                this.props.dispatch(startAddEmployee(employee));
+                                console.log("Adding new member: ", employee);
                             }
                         }} />
                     </div>

@@ -14,7 +14,7 @@ class LeaveRequestEdit extends Component {
         super(props);
 
         this.state = {
-            employeeLeaves: props.employeeLeaves,
+            // employeeLeaves: props.employeeLeaves,
             currentSelectedEmployeeLeave: '',
         };
     }
@@ -25,11 +25,7 @@ class LeaveRequestEdit extends Component {
 
     fetchAllEmployeeLeaves = () => {
         let self = this;
-        this.props.dispatch(startFetchEmployeeLeave()).then(
-            (response) => {
-                self.setState({employeeLeaves: response, currentSelectedEmployeeLeave: ''});
-            }
-        );
+        this.props.dispatch(startFetchEmployeeLeave());
     }
 
     editClicked = (member) => {
@@ -59,22 +55,21 @@ class LeaveRequestEdit extends Component {
         return (
 
             <div>
-
                 
-                <h4 className="text-center mt-3">Employee Edit</h4>
+                <h4 className="text-center mt-3">Employee Leave Edit</h4>
 
                 <Button color="warning" className="float-right ml-1" onClick={() => this.onDeleteClicked()}>
                     <FontAwesomeIcon icon={faTrashAlt} />
                 </Button>
 
 
-                <button className="btn btn-danger float-right" onClick={() => this.editClicked('')}>Add New Employee</button>
+                <button className="btn btn-danger float-right" onClick={() => this.editClicked('')}>New LeaveRequest</button>
 
-                {/* -------- Shows feature List */}
+                {/* -------- Shows LeaveRequest List */}
                 <div className="row clear-fix">
                     <div className="col-md-3 list-item-div">
 
-                        <Table bordered hover>
+                        <Table hover>
                             <thead>
                                 <tr>
                                     <th colSpan="3" className="text-center">Leave Request</th>
@@ -82,7 +77,7 @@ class LeaveRequestEdit extends Component {
                             </thead>
 
                             <tbody>
-                                {this.state.employeeLeaves && (this.state.employeeLeaves.content).map((leaveRequest, i) => (
+                                {this.props.employeeLeaves && (this.props.employeeLeaves).map((leaveRequest, i) => (
 
                                     <tr key={i} onClick={() => this.editClicked(leaveRequest)}>
                                         <th scope="row">{i + 1}</th>
@@ -106,9 +101,7 @@ class LeaveRequestEdit extends Component {
                                 );
                             }
                             else {
-                                this.props.dispatch(startAddEmployeeLeave(leaveRequest)).then(
-                                    this.editClicked('')
-                                );
+                                this.props.dispatch(startAddEmployeeLeave(leaveRequest));
                                 console.log("Adding new leave request: ", leaveRequest);
                             }
                         }} />

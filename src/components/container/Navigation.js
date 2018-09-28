@@ -31,6 +31,9 @@ export default class Navigation extends Component {
                                 <NavLink className="nav-link" to="/leave-request">Leave Request</NavLink>
                             </NavItem>
                             <NavItem>
+                                <NavLink className="nav-link" to="/add-leaveType">Leave Type</NavLink>
+                            </NavItem>
+                            <NavItem>
                                 <NavLink className="nav-link" to="/profile">My Profile</NavLink>
                             </NavItem>
                         </Nav>

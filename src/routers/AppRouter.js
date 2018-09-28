@@ -8,11 +8,12 @@ import { AdminRoute } from './AdminRoute';
 
 // ----------- Employee Routes ----------------
 import Dashboard from '../components/dashboard/Dashboard';
-import EmployeeEdit from '../components/dashboard/EmployeeEdit';
 import LeaveRequestEdit from '../components/dashboard/LeaveRequestEdit';
 import EmployeeProfile from '../components/dashboard/profile/EmployeeProfile';
 
 // ----------- Admin Routes ----------------
+import EmployeeEdit from '../components/dashboard/EmployeeEdit';
+import LeaveTypeEdit from '../components/dashboard/LeaveTypeEdit';
 
 export const history = createHistory();
 
@@ -25,6 +26,7 @@ const AppRouter = () => (
             <EmployeeRoute path="/profile" component={EmployeeProfile} />
 
             <AdminRoute path="/add-employee" component={EmployeeEdit} />
+            <AdminRoute path="/add-leaveType" component={LeaveTypeEdit} />
             
         </Switch>
         </HashRouter>

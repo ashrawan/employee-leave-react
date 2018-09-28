@@ -3,7 +3,7 @@
     border-bottom: 1px solid #0abde3;
 }
 
-.displayErrors input:invalid, .displayErrors textarea {
+.displayErrors input:invalid {
     border-color: rgba(255,0,0,.7);
     box-shadow: 0 0 0 0.2rem rgba(255,0,0,.25);
 }

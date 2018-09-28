@@ -29,8 +29,8 @@ export const startFetchEmployeeLeave = () => {
   return (dispatch) => {
     return axios.get('/employee-leaves')
       .then(function (response) {
-        dispatch(fetchEmployeeLeave(response.data));
-        return response.data;
+        dispatch(fetchEmployeeLeave(response.data.content));
+        return response.data.content;
       })
       .catch(function (error) {
         console.log(error);
