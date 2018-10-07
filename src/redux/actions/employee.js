@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {API} from '../../utils/api';
 
 export const fetchEmployee = (employees) => ({
   type: 'FETCH_EMPLOYEE',
@@ -27,7 +27,7 @@ export const removeEmployee = ({ id } = {}) => ({
 
 export const startFetchEmployee = () => {
   return (dispatch) => {
-    return axios.get('/employees')
+    return API.get('/employees')
       .then(function (response) {
         dispatch(fetchEmployee(response.data.content));
         return response.data.content;
@@ -41,7 +41,7 @@ export const startFetchEmployee = () => {
 export const startAddEmployee = (employee) => {
   return (dispatch) => {
   
-    return axios.post('/employees', employee)
+    return API.post('/employees', employee)
       .then((response) => {
   
       dispatch(addEmployee(response.data));
@@ -54,7 +54,7 @@ export const startAddEmployee = (employee) => {
 
 export const startRemoveEmployee = (id) => {
   return (dispatch) => {
-     return axios.delete('/employees/'+id)
+     return API.delete('/employees/'+id)
       .then(function (response) {
          dispatch(removeEmployee(id));
       })
@@ -67,7 +67,7 @@ export const startRemoveEmployee = (id) => {
 
 export const startEditEmployee = (employee) => {
   return (dispatch) => {
-    return axios.put('/employees', employee)
+    return API.put('/employees', employee)
       .then((response) => {
         console.log("employees ", response.data);
         dispatch(editEmployee(response.data.id, response.data))

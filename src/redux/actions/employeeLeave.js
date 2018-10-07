@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {API} from '../../utils/api';
 
 export const fetchEmployeeLeave = (employeeLeaves) => ({
   type: 'FETCH_EMPLOYEELEAVE',
@@ -27,7 +27,7 @@ export const removeEmployeeLeave = ({ id } = {}) => ({
 
 export const startFetchEmployeeLeave = () => {
   return (dispatch) => {
-    return axios.get('/employee-leaves')
+    return API.get('/employee-leaves')
       .then(function (response) {
         dispatch(fetchEmployeeLeave(response.data.content));
         return response.data.content;
@@ -41,7 +41,7 @@ export const startFetchEmployeeLeave = () => {
 export const startAddEmployeeLeave = (employeeLeave) => {
   return (dispatch) => {
   
-    return axios.post('/employee-leaves', employeeLeave)
+    return API.post('/employee-leaves', employeeLeave)
       .then((response) => {
   
       dispatch(addEmployeeLeave(response.data));
@@ -54,7 +54,7 @@ export const startAddEmployeeLeave = (employeeLeave) => {
 
 export const startRemoveEmployeeLeave = (id) => {
   return (dispatch) => {
-     return axios.delete('/employee-leaves'+id)
+     return API.delete('/employee-leaves'+id)
       .then(function (response) {
          dispatch(removeEmployeeLeave(id));
       })
@@ -67,7 +67,7 @@ export const startRemoveEmployeeLeave = (id) => {
 
 export const startEditEmployeeLeave = (employeeLeave) => {
   return (dispatch) => {
-    return axios.put('/employee-leaves', employeeLeave)
+    return API.put('/employee-leaves', employeeLeave)
       .then((response) => {
         console.log("employeeLeaves ", response.data);
         dispatch(editEmployeeLeave(response.data.id, response.data))

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LayoutHOC from '../container/LayoutHoc';
 
-class Dashboard extends Component {
+class Dashboard extends React.Component {
     render() {
         return (
             <div>

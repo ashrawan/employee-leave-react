@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter , Route, Switch } from 'react-router-dom';
+import { HashRouter, Router ,Route, Switch } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 
 import Login from '../components/login/Login';
@@ -18,7 +18,7 @@ import LeaveTypeEdit from '../components/dashboard/LeaveTypeEdit';
 export const history = createHistory();
 
 const AppRouter = () => (
-    <HashRouter>
+    <Router  history={history}>
         <Switch>
             <Route path="/" component={Login} exact/>
             <EmployeeRoute path="/home" component={Dashboard} />
@@ -29,7 +29,7 @@ const AppRouter = () => (
             <AdminRoute path="/add-leaveType" component={LeaveTypeEdit} />
             
         </Switch>
-        </HashRouter>
+        </Router>
 );
 
 export default AppRouter;

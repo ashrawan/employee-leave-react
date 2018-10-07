@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import axios from 'axios';
+import {API} from '../../../utils/api';
 
 class EmployeeLeaveForm extends Component {
     constructor(props) {
@@ -83,7 +84,7 @@ class EmployeeLeaveForm extends Component {
     loadOptions = (inputValue, callback) => {
 
         let self = this;
-        axios.get('leave-types')
+        API.get('leave-types')
             .then(function (response) {
                 var leaveOpt = (response.data).map(leaveType => ({ 'id': leaveType.id, 'label': leaveType.type_name }));
                 // console.log("modified data",employeeOpt);
@@ -127,7 +128,7 @@ class EmployeeLeaveForm extends Component {
                                     loadOptions={this.loadOptions}
                                     onChange={this.handleChange}
                                     getOptionValue={(option) => (option.label)}
-                                    isOptionDisabled={(option) => option.status === 9}
+                                    isOptionDisabled={(option) => option.status === 0}
                                 />
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {API} from '../../utils/api';
 
 export const fetchLeaveType = (leaveTypes) => ({
   type: 'FETCH_LEAVETYPE',
@@ -27,7 +27,7 @@ export const removeLeaveType = ({ id } = {}) => ({
 
 export const startFetchLeaveType = () => {
   return (dispatch) => {
-    return axios.get('/leave-types')
+    return API.get('/leave-types')
       .then(function (response) {
         dispatch(fetchLeaveType(response.data));
         return response.data;
@@ -41,7 +41,7 @@ export const startFetchLeaveType = () => {
 export const startAddLeaveType = (leaveType) => {
   return (dispatch) => {
   
-    return axios.post('/leave-types', leaveType)
+    return API.post('/leave-types', leaveType)
       .then((response) => {
   
       dispatch(addLeaveType(response.data));
@@ -54,7 +54,7 @@ export const startAddLeaveType = (leaveType) => {
 
 export const startRemoveLeaveType = (id) => {
   return (dispatch) => {
-     return axios.delete('/leave-types/'+id)
+     return API.delete('/leave-types/'+id)
       .then(function (response) {
          dispatch(removeLeaveType(id));
       })
@@ -67,7 +67,7 @@ export const startRemoveLeaveType = (id) => {
 
 export const startEditLeaveType = (leaveType) => {
   return (dispatch) => {
-    return axios.put('/leave-types', leaveType)
+    return API.put('/leave-types', leaveType)
       .then((response) => {
         console.log("leaveTypes ", response.data);
         dispatch(editLeaveType(response.data.id, response.data))

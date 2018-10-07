@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AsyncSelect from 'react-select/lib/Async';
 import axios from 'axios';
+import {API} from '../../../utils/api';
 
 class EmployeeAddForm extends Component {
     constructor(props) {
@@ -10,15 +11,19 @@ class EmployeeAddForm extends Component {
             username: '',
             password: '',
             supervisorOptions: [],
-            selectedSupervisor: '',
+            selectedSupervisor: {},
         }
     }
 
     componentWillReceiveProps(props) {
         console.log(props.selectedEmployee);
-        let selectedSupervisor = '';
+        let selectedSupervisor = {};
+        let selectedOption = '';
         if(props.selectedEmployee && props.selectedEmployee.employeeSupervisor){
-            selectedSupervisor = ({'id': props.selectedEmployee.employeeSupervisor.id, 'label': props.selectedEmployee.employeeSupervisor.fullName})
+            // selectedSupervisor = ({'id': props.selectedEmployee.employeeSupervisor.id, 'label': props.selectedEmployee.employeeSupervisor.fullName})
+            selectedSupervisor = props.selectedEmployee.employeeSupervisor;
+            selectedOption = ({'id': props.selectedEmployee.employeeSupervisor.id, 'label': props.selectedEmployee.employeeSupervisor.fullName})
+
         }
     
         this.setState({
@@ -27,7 +32,7 @@ class EmployeeAddForm extends Component {
             username: props.selectedEmployee ? props.selectedEmployee.username : '',
             password: '',
             selectedSupervisor: selectedSupervisor,
-
+            selectedOption: selectedOption,
             displayErrors: ''
         })
     };
@@ -54,9 +59,7 @@ class EmployeeAddForm extends Component {
             fullName: fullName,
             username: username,
             password: password,
-            employeeSupervisor: selectedSupervisor? {
-                id: selectedSupervisor.id
-            }: null
+            employeeSupervisor: selectedSupervisor? selectedSupervisor: null
         });
 
     }
@@ -69,7 +72,7 @@ class EmployeeAddForm extends Component {
     loadOptions = (inputValue, callback) => {
 
         let self = this;
-        axios.get('employees/employee-by-fullname', {
+        API.get('employees/employee-by-fullname', {
             params: {
                 fullname: inputValue
             }
@@ -78,7 +81,8 @@ class EmployeeAddForm extends Component {
             console.log(response.data.content);
             var employeeOpt = (response.data.content).map(employee => ({'id': employee.id, 'label' : employee.fullName}));
             // console.log("modified data",employeeOpt);
-            self.setState({selectedOption: employeeOpt}, callback(employeeOpt))
+            self.setState({selectedOption: employeeOpt, supervisorOptions: response.data.content}, callback(employeeOpt));
+            // self.setState({selectedOption: response.data.content}, callback(response.data.content))
           })
           .catch(function (error) {
             console.log(error);
@@ -86,13 +90,16 @@ class EmployeeAddForm extends Component {
     };
 
     handleChange = (newValue) => {
-        console.log("new value", newValue);
-        this.setState({ selectedSupervisor: newValue });
+        var selectedsup = (this.state.supervisorOptions).filter(function (obj) { 
+            return obj.id == newValue.id; 
+        })[0];
+        console.log("new value", this.state.selectedSupervisor);
+        this.setState({ selectedSupervisor: selectedsup });
         return newValue;
     };
 
     render() {
-        const { fullName, username, password, selectedSupervisor } = this.state;
+        const { fullName, username, password, selectedSupervisor, selectedOption } = this.state;
 
         return (
             <div>
@@ -125,12 +132,12 @@ class EmployeeAddForm extends Component {
                                     cacheOptions
                                     placeholder="Select Supervisor"
                                     name="employeeSupervisor"
-                                    value={selectedSupervisor}
+                                    value={selectedOption}
                                     isClearable="true"
                                     loadOptions={this.loadOptions}
                                     onChange={this.handleChange}
                                     getOptionValue={(option) => (option.label)}
-                                    isOptionDisabled={(option) => option.id === 6}
+                                    isOptionDisabled={(option) => option.id === 0}
                                 />
                             </div>
                         </div>

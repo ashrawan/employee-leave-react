@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
+
+import { NavLink } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+
+import {checkServerStatus, loginRequest} from '../../redux/actions/token';
 
 class Login extends Component {
     constructor(props) {
@@ -20,15 +24,20 @@ class Login extends Component {
 
     checkServerStatus() {
         let self = this;
-        axios.get("leave-types")
-          .then(function (response) {
-            if (response.data) {
-              self.setState({ serverStarted: true })
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+
+        this.props.dispatch(checkServerStatus()).then(
+            self.setState({ serverStarted: true })
+        );
+
+        // axios.get("leave-types")
+        //   .then(function (response) {
+        //     if (response.data) {
+        //       self.setState({ serverStarted: true })
+        //     }
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
       }
 
     onChange = (e) => {
@@ -37,7 +46,7 @@ class Login extends Component {
 
     loginSubmit = (event) => {
         event.preventDefault();
-        // let self = this;
+       const {username, password} = this.state;
 
         if (!event.target.checkValidity()) {
             this.setState({
@@ -47,6 +56,7 @@ class Login extends Component {
             alert("Fill Up All required Field");
             return;
         }
+        this.props.dispatch(loginRequest(username, password));
         alert("Login Submitted");
     }
 
@@ -86,4 +96,12 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+    return {
+        token: state.token
+    };
+};
+
+const connectedLogin = connect(mapStateToProps)(Login);
+
+export default connectedLogin;
