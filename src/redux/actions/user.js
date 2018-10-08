@@ -12,6 +12,7 @@ export const clearUser = () => ({
 
 export const startFetchuser = () => {
     console.log("local storage token ", localStorage.getItem("token"));
+    API.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
    
     return (dispatch) => {
         return API.get("employees/me").then(
@@ -19,17 +20,12 @@ export const startFetchuser = () => {
                 console.log("response user profile ", response);
                 dispatch(user(response.data));
                 dispatch(redirectTo("/home"));
-
-                //console.log("response user data == ",response.data.role , "== ROLE_ADMIN");
-                // if (response.data.role == "ROLE_ADMIN") {
-                //     dispatch(redirectTo("/adminDash"));
-                // } else {
-                //     dispatch(redirectTo("/userDash"));
-                // }
                 return response;
             }).catch(
                 (error) => {
                     console.log("response user profile ", error);
+                    localStorage.removeItem("token");
+                    dispatch(redirectTo("/"));
                 });
     };
 };

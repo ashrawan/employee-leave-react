@@ -72,7 +72,7 @@ export const startEditEmployee = (employee) => {
         console.log("employees ", response.data);
         dispatch(editEmployee(response.data.id, response.data))
       }).catch((error) => {
-        console.log("Error === ", error);
+        console.log("Error === ", error.respone.data);
       });
   };
 

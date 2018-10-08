@@ -30,6 +30,7 @@ class LeaveEdit extends Component {
 
     editClicked = (leaveType) => {
         this.setState({  currentSelectedLeaveType: leaveType });
+     
     }
 
     onDeleteClicked = () => {
@@ -44,7 +45,7 @@ class LeaveEdit extends Component {
     }
 
     render() {
-
+console.log("llpp ", this.props);
         return (
 
             <div>

@@ -51,8 +51,6 @@ export const loginRequest = (username, password) => {
             var tokenData = response.data;
             localStorage.setItem("token", tokenData.access_token);
 
-            // API.defaults.headers.common['Authorization'] = tokenData.token_type+ " " + tokenData.access_token;
-
             dispatch(token(tokenData));
             dispatch(startFetchuser());
             console.log("token actions response ", response);

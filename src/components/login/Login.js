@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 import {checkServerStatus, loginRequest} from '../../redux/actions/token';
@@ -24,20 +23,10 @@ class Login extends Component {
 
     checkServerStatus() {
         let self = this;
-
-        this.props.dispatch(checkServerStatus()).then(
-            self.setState({ serverStarted: true })
-        );
-
-        // axios.get("leave-types")
-        //   .then(function (response) {
-        //     if (response.data) {
-        //       self.setState({ serverStarted: true })
-        //     }
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
+        self.setState({ serverStarted: true })
+        // this.props.dispatch(checkServerStatus()).then(
+        //     self.setState({ serverStarted: true })
+        // );
       }
 
     onChange = (e) => {
@@ -57,13 +46,13 @@ class Login extends Component {
             return;
         }
         this.props.dispatch(loginRequest(username, password));
-        alert("Login Submitted");
     }
 
     render() {
         const { username } = this.state;
         return (
             <div>
+                {!!this.props.token.redirect && <Redirect to={this.props.token.redirect} />}
                 <NavLink className="nav-link" to="/home">Test Employee Dashboard</NavLink>
 
                 {!this.state.serverStarted ?
